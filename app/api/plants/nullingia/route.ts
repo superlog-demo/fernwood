@@ -1,0 +1,29 @@
+import { SpanStatusCode, trace } from "@opentelemetry/api";
+
+const tracer = trace.getTracer("@superlog/sample");
+
+// Reads the leaf count off the plant's care profile to show on the cart line.
+// This SKU has no care profile, so the property read throws a TypeError.
+function addNullingiaToCart() {
+  const careProfile = null as unknown as { leaves: number };
+  return { leaves: careProfile.leaves };
+}
+
+export async function POST() {
+  return tracer.startActiveSpan("cart.add", (span) => {
+    span.setAttribute("plant.id", "nullingia");
+    try {
+      const line = addNullingiaToCart();
+      span.setStatus({ code: SpanStatusCode.OK });
+      return Response.json({ ok: true, line });
+    } catch (err) {
+      const e = err as Error;
+      console.error('cart.add failed for plant "nullingia":', e);
+      span.recordException(e);
+      span.setStatus({ code: SpanStatusCode.ERROR, message: e.message });
+      return Response.json({ ok: false, error: e.name, message: e.message }, { status: 500 });
+    } finally {
+      span.end();
+    }
+  });
+}

@@ -78,11 +78,7 @@ export default function Home() {
   async function add(p: Product) {
     setState((s) => ({ ...s, [p.id]: { status: "loading" } }));
     try {
-      const res = await fetch("/api/cart/add", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ id: p.id }),
-      });
+      const res = await fetch(`/api/plants/${p.id}`, { method: "POST" });
       const data = (await res.json().catch(() => ({}))) as {
         error?: string;
         message?: string;
