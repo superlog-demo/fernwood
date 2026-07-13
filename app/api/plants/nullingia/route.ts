@@ -2,11 +2,21 @@ import { SpanStatusCode, trace } from "@opentelemetry/api";
 
 const tracer = trace.getTracer("@superlog/sample");
 
+interface CareProfile {
+  leaves: number;
+}
+
+// Returns the care profile for a plant SKU, or null if none is on file.
+function getCareProfile(_plantId: string): CareProfile | null {
+  // nullingia has no care profile registered yet
+  return null;
+}
+
 // Reads the leaf count off the plant's care profile to show on the cart line.
-// This SKU has no care profile, so the property read throws a TypeError.
+// Defaults to 0 leaves when no care profile exists for this SKU.
 function addNullingiaToCart() {
-  const careProfile = null as unknown as { leaves: number };
-  return { leaves: careProfile.leaves };
+  const careProfile = getCareProfile("nullingia");
+  return { leaves: careProfile?.leaves ?? 0 };
 }
 
 export async function POST() {
