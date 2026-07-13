@@ -2,10 +2,10 @@ import { SpanStatusCode, trace } from "@opentelemetry/api";
 
 const tracer = trace.getTracer("@superlog/sample");
 
-// Computes the Ghost Orchid's watering reminder. It references a schedule that
-// was never defined in this scope, throwing a ReferenceError.
+const waterSchedule = { frequency: "every 10 days", amount: "50ml" };
+
 function ghostOrchidWateringReminder() {
-  return new Function("return waterSchedule")();
+  return waterSchedule;
 }
 
 export async function POST() {
