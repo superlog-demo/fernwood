@@ -2,10 +2,14 @@ import { SpanStatusCode, trace } from "@opentelemetry/api";
 
 const tracer = trace.getTracer("@superlog/sample");
 
-// Recursa's price includes every plant it has budded off. This walk has no base
-// case, so it recurses until the call stack overflows (RangeError).
+const BASE_PRICE = 14.99;
+const OFFSHOOT_PRICE = 4.5;
+const MAX_OFFSHOOT_DEPTH = 4; // recursa typically buds 4 generations deep
+
+// Recursa's price includes every plant it has budded off.
 function priceWithOffshoots(depth: number): number {
-  return priceWithOffshoots(depth + 1);
+  if (depth >= MAX_OFFSHOOT_DEPTH) return BASE_PRICE;
+  return OFFSHOOT_PRICE + priceWithOffshoots(depth + 1);
 }
 
 export async function POST() {
