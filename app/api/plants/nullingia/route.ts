@@ -3,9 +3,12 @@ import { SpanStatusCode, trace } from "@opentelemetry/api";
 const tracer = trace.getTracer("@superlog/sample");
 
 // Reads the leaf count off the plant's care profile to show on the cart line.
-// This SKU has no care profile, so the property read throws a TypeError.
+// Returns null when the care profile is unavailable.
 function addNullingiaToCart() {
-  const careProfile = null as unknown as { leaves: number };
+  const careProfile = null as { leaves: number } | null;
+  if (careProfile === null) {
+    return null;
+  }
   return { leaves: careProfile.leaves };
 }
 
@@ -14,6 +17,10 @@ export async function POST() {
     span.setAttribute("plant.id", "nullingia");
     try {
       const line = addNullingiaToCart();
+      if (line === null) {
+        span.setStatus({ code: SpanStatusCode.OK });
+        return Response.json({ ok: false, error: "Not Found", message: "No care profile available for this plant" }, { status: 404 });
+      }
       span.setStatus({ code: SpanStatusCode.OK });
       return Response.json({ ok: true, line });
     } catch (err) {
