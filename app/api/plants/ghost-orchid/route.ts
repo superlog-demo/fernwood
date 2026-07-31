@@ -1,4 +1,5 @@
 import { SpanStatusCode, trace } from "@opentelemetry/api";
+import * as Sentry from "@sentry/nextjs";
 
 const tracer = trace.getTracer("@superlog/sample");
 
@@ -17,6 +18,7 @@ export async function POST() {
       return Response.json({ ok: true, reminder });
     } catch (err) {
       const e = err as Error;
+      Sentry.captureException(e);
       console.error('cart.add failed for plant "ghost-orchid":', e);
       span.recordException(e);
       span.setStatus({ code: SpanStatusCode.ERROR, message: e.message });
