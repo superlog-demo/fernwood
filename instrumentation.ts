@@ -10,7 +10,15 @@ export async function register() {
     await import("./sentry.edge.config");
   }
 
-  registerOTel({ serviceName: "superlog-sample-nextjs" });
+  registerOTel({
+    serviceName: "superlog-sample-nextjs",
+    attributes: {
+      // Tag this application as a demo environment to prevent production alerts
+      env: "demo",
+      "deployment.environment.name": "demo",
+      "app.purpose": "demonstration",
+    },
+  });
 }
 
 export const onRequestError = Sentry.captureRequestError;
