@@ -3,10 +3,9 @@ import * as Sentry from "@sentry/nextjs";
 
 const tracer = trace.getTracer("@superlog/sample");
 
-// Loads the Marigold's care card, stored as a JSON blob. The record is
-// malformed, so JSON.parse throws a SyntaxError.
+// Loads the Marigold's care card, stored as a JSON blob.
 function loadMarigoldCareCard() {
-  return JSON.parse("{ petals: unquoted, }");
+  return JSON.parse('{"petals":"yellow","wateringFrequency":"weekly","sunlight":"full"}');
 }
 
 export async function POST() {
