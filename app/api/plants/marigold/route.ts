@@ -3,10 +3,9 @@ import { captureServerException } from "@/lib/sentry";
 
 const tracer = trace.getTracer("@superlog/sample");
 
-// Loads the Marigold's care card, stored as a JSON blob. The record is
-// malformed, so JSON.parse throws a SyntaxError.
+// Loads the Marigold's care card, stored as a JSON blob.
 function loadMarigoldCareCard() {
-  return JSON.parse("{ petals: unquoted, }");
+  return JSON.parse('{"petals":"golden"}');
 }
 
 export async function POST() {
