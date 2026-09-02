@@ -12,26 +12,7 @@ type Product = {
   bg: string;
 };
 
-// Each plant maps to a distinct exception thrown by POST /api/cart/add.
 const PRODUCTS: Product[] = [
-  {
-    id: "nullingia",
-    name: "Nullingia",
-    errorType: "TypeError",
-    desc: "A hollow beauty — reach for a leaf and there's simply nothing there. Cannot read properties of null.",
-    price: 32,
-    emoji: "🪴",
-    bg: "linear-gradient(135deg,#e7f2ea,#cfe6d6)",
-  },
-  {
-    id: "recursa",
-    name: "Recursa Infinitum",
-    errorType: "RangeError",
-    desc: "Grows into itself, watering itself watering itself watering itself… until the call stack finally gives out.",
-    price: 44,
-    emoji: "🎋",
-    bg: "linear-gradient(135deg,#eef3e4,#d8e6c2)",
-  },
   {
     id: "marigold",
     name: "Malformed Marigold",
@@ -45,28 +26,10 @@ const PRODUCTS: Product[] = [
     id: "patience-fern",
     name: "Patience Fern",
     errorType: "Timeout",
-    desc: "Fetches its sunlight from a very distant star. Always waiting, always times out.",
+    desc: "A calm, adaptable fern that thrives in gentle light and a little patience.",
     price: 28,
     emoji: "🌿",
     bg: "linear-gradient(135deg,#e9f1ea,#c9e3cf)",
-  },
-  {
-    id: "deadlock-dahlia",
-    name: "Deadlock Dahlia",
-    errorType: "DatabaseError",
-    desc: "Two roots, one pot, and neither will yield. The transaction rolls back in a huff.",
-    price: 37,
-    emoji: "🌺",
-    bg: "linear-gradient(135deg,#f2e7ee,#e2c6d6)",
-  },
-  {
-    id: "ghost-orchid",
-    name: "Ghost Orchid",
-    errorType: "ReferenceError",
-    desc: "Famously hard to find in the wild. Also famously undefined — its watering schedule is not defined.",
-    price: 49,
-    emoji: "👻",
-    bg: "linear-gradient(135deg,#eef0f3,#d3d8e2)",
   },
 ];
 
@@ -119,11 +82,8 @@ export default function Home() {
 
       <main className="wrap">
         <section className="hero">
-          <h1>Plants that break beautifully.</h1>
-          <p>
-            Every plant on this shelf fails in its own special way. Add one to
-            your cart to watch it happen.
-          </p>
+          <h1>Bring a little green home.</h1>
+          <p>Choose a plant for your space and add it to your cart.</p>
         </section>
 
         <section className="grid">
@@ -162,10 +122,6 @@ export default function Home() {
           })}
         </section>
 
-        <p className="footnote">
-          Fernwood is a demo storefront. Every “Add to cart” throws a real,
-          intentional server error to generate telemetry.
-        </p>
       </main>
     </>
   );

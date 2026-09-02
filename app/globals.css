@@ -288,9 +288,3 @@ button {
   color: var(--danger-ink);
   border: 1px solid var(--danger-line);
 }
-
-.footnote {
-  color: var(--muted);
-  font-size: 12px;
-  padding-bottom: 40px;
-}

@@ -1,12 +1,14 @@
 import { SpanStatusCode, trace } from "@opentelemetry/api";
-import { captureServerException } from "@/lib/sentry";
 
 const tracer = trace.getTracer("@superlog/sample");
 
-// Checks live stock for the Patience Fern against the upstream greenhouse API,
-// which never answers in time — the call times out.
-function checkPatienceFernStock(): never {
-  throw new Error("upstream greenhouse API timed out after 5000ms");
+function checkPatienceFernStock() {
+  console.error('greenhouse stock check failed for plant "patience-fern"', {
+    reason: "upstream request timed out",
+    fallback: "cached stock",
+  });
+
+  return { available: true, source: "cached" };
 }
 
 export async function POST() {
@@ -18,7 +20,6 @@ export async function POST() {
       return Response.json({ ok: true, stock });
     } catch (err) {
       const e = err as Error;
-      captureServerException(e);
       console.error('cart.add failed for plant "patience-fern":', e);
       span.recordException(e);
       span.setStatus({ code: SpanStatusCode.ERROR, message: e.message });

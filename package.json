@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "Fernwood — a demo storefront that fails on purpose, for demoing Superlog error tracking.",
+  "description": "Fernwood — an indoor-plant storefront.",
   "scripts": {
     "dev": "next dev --port 3005",
     "build": "next build",
