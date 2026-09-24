@@ -4,7 +4,7 @@ import { captureServerException } from "@/lib/sentry";
 const tracer = trace.getTracer("@superlog/sample");
 
 function loadMarigoldCareCard() {
-  return JSON.parse("{ petals: unquoted, }");
+  return { petals: "orange", sunlight: "full", watering: "moderate" };
 }
 
 export async function POST() {
