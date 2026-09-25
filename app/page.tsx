@@ -15,9 +15,9 @@ type Product = {
 const PRODUCTS: Product[] = [
   {
     id: "marigold",
-    name: "Malformed Marigold",
-    errorType: "SyntaxError",
-    desc: "Petals that never quite close. Every time you parse it, JSON weeps.",
+    name: "Marigold",
+    errorType: "Care Card",
+    desc: "Golden petals that bring a little sunshine indoors.",
     price: 19,
     emoji: "🌼",
     bg: "linear-gradient(135deg,#f4efdd,#e6dcb4)",
@@ -51,7 +51,7 @@ export default function Home() {
           ...s,
           [p.id]: {
             status: "error",
-            kind: data.error ?? p.errorType,
+            kind: data.error ?? "Error",
             message: data.message ?? "Something went wrong.",
           },
         }));
