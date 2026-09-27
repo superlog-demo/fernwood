@@ -4,7 +4,9 @@ import { captureServerException } from "@/lib/sentry";
 const tracer = trace.getTracer("@superlog/sample");
 
 function loadMarigoldCareCard() {
-  return JSON.parse("{ petals: unquoted, }");
+  // Keys and string values must be double-quoted and there must be no
+  // trailing comma, otherwise JSON.parse throws a SyntaxError.
+  return JSON.parse('{ "petals": "unquoted" }');
 }
 
 export async function POST() {
