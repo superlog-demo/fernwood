@@ -5,7 +5,7 @@ import { useState } from "react";
 type Product = {
   id: string;
   name: string;
-  errorType: string;
+  errorType?: string;
   desc: string;
   price: number;
   emoji: string;
@@ -15,9 +15,8 @@ type Product = {
 const PRODUCTS: Product[] = [
   {
     id: "marigold",
-    name: "Malformed Marigold",
-    errorType: "SyntaxError",
-    desc: "Petals that never quite close. Every time you parse it, JSON weeps.",
+    name: "Marigold",
+    desc: "Golden blooms that thrive in full sun.",
     price: 19,
     emoji: "🌼",
     bg: "linear-gradient(135deg,#f4efdd,#e6dcb4)",
@@ -51,7 +50,7 @@ export default function Home() {
           ...s,
           [p.id]: {
             status: "error",
-            kind: data.error ?? p.errorType,
+            kind: data.error ?? p.errorType ?? "Error",
             message: data.message ?? "Something went wrong.",
           },
         }));
@@ -97,7 +96,7 @@ export default function Home() {
                 <div className="card-body">
                   <div className="card-head">
                     <span className="card-name">{p.name}</span>
-                    <span className="err-chip">{p.errorType}</span>
+                    {p.errorType && <span className="err-chip">{p.errorType}</span>}
                   </div>
                   <div className="card-desc">{p.desc}</div>
                   <div className="card-row">
